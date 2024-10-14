@@ -13,7 +13,6 @@ class Vgg(nn.Module):
         self.fc_layer = fc_layer
         self.classes = classes
 
-        # todo: construct the simplified VGG network blocks
         # input shape: [bs, 3, 32, 32]
         # layers and output feature shape for each block:
         # # conv_block1 (Conv2d, ReLU, MaxPool2d) --> [bs, 64, 16, 16]
@@ -83,7 +82,7 @@ class Vgg(nn.Module):
         :return: score: predicted score for each class (10 classes in total), [bs, 10]
         """
         score = None
-        # todo
+    
         x = self.conv_block1(x)
         x = self.conv_block2(x)
         x = self.conv_block3(x)
