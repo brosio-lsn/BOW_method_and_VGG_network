@@ -42,7 +42,6 @@ def grid_points(img, nPointsX, nPointsY, border):
     :return: vPoints: 2D grid point coordinates, numpy array, [nPointsX*nPointsY, 2]
     """
     vPoints = None  # numpy array, [nPointsX*nPointsY, 2]
-    #todo :
     #create evenly spaced x coordinates ranging from border to width-border
     xcoord = np.linspace(border, img.shape[1] - border, nPointsX)
     #create evenly spaced y coordinates ranging from border to height-border
@@ -78,8 +77,6 @@ def descriptors_hog(img, vPoints, cellWidth, cellHeight):
 
                 start_x = center_x + (cell_x) * w
                 end_x = center_x + (cell_x + 1) * w
-
-                # todo
                 # compute the angles (range is [-pi, pi])
                 angles = np.arctan2(grad_y[start_y:end_y, start_x:end_x], grad_x[start_y:end_y, start_x:end_x])
                 # convert the angles to the range [0, 2*pi]
@@ -127,7 +124,6 @@ def create_codebook(nameDirPos, nameDirNeg, k, numiter):
         img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)  # [h, w]
 
         # Collect local feature points for each image, and compute a descriptor for each local feature point
-        # todo
         #compute the grid points
         grd_pts = grid_points(img, nPointsX, nPointsY, border)  
         #compute the descriptors for the grid points
@@ -155,7 +151,6 @@ def bow_histogram(vFeatures, vCenters):
     """
     histo = None
 
-    # todo
     #find the nearest neighbor (with respect to the centers) for each feature vector in vFeatures
     Idx, Dist = findnn(vFeatures, vCenters)
     #create a histogram with N bins (empty at the beginning)
@@ -191,7 +186,6 @@ def create_bow_histograms(nameDir, vCenters):
         img = cv2.imread(vImgNames[i])  # [172, 208, 3]
         img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)  # [h, w]
 
-        # todo
         #compute the grid points
         grd_pts = grid_points(img, nPointsX, nPointsY, border)
         #compute the descriptors for the grid points
@@ -216,7 +210,6 @@ def bow_recognition_nearest(histogram,vBoWPos,vBoWNeg):
     DistPos, DistNeg = None, None
 
     # Find the nearest neighbor in the positive and negative sets and decide based on this neighbor
-    # todo
     #find the nearest neighbor in the positive set and the negative set
     DistPos, DistNeg = findnn(histogram, vBoWPos)[1], findnn(histogram, vBoWNeg)[1]
     ...
@@ -236,8 +229,8 @@ if __name__ == '__main__':
     nameDirPos_test = 'data/data_bow/cars-testing-pos'
     nameDirNeg_test = 'data/data_bow/cars-testing-neg'
 
-    k = 50  # todo
-    numiter = 300  # todo
+    k = 50  
+    numiter = 300 
 
     print('creating codebook ...')
     vCenters = create_codebook(nameDirPos_train, nameDirNeg_train, k, numiter)
